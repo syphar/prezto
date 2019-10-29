@@ -10,4 +10,60 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+unsetopt correct_all
+
+alias gur="git fetch --all --recurse-submodules=yes --prune && git fetch --all --recurse-submodules=yes --prune --tags"
+
+alias pipupgrade="pip freeze | grep = | cut -d = -f 1 | xargs pip install -U"
+alias pipupgrade2="cat requirements.txt | grep = | cut -d = -f 1 | xargs pip install -U"
+
+alias tiga='tig --all'
+alias tigs='tig status'
+
+alias dokku="ssh root@syphar.de dokku"
+
+alias pcat="pygmentize -f terminal256 -O style=native -g"
+
+# cd in one of my projects
+cdp() {
+  if [ ! -z $1 ] 
+  then 
+    cd $(~/src/dotfiles/projects.py | selecta -s "$1")
+  else
+    cd $(~/src/dotfiles/projects.py | selecta)
+  fi
+  clear
+}
+
+# open a file with vim
+vims() {
+  if [ ! -z $1 ] 
+  then 
+    vim $(ag . -i --nocolor --nogroup --hidden --ignore .git --ignore .svn --ignore .hg --ignore .DS_Store --ignore "**/*.pyc" -g "" | selecta -s "$1")
+  else
+    vim $(ag . -i --nocolor --nogroup --hidden --ignore .git --ignore .svn --ignore .hg --ignore .DS_Store --ignore "**/*.pyc" -g "" | selecta)
+  fi
+}
+
+# open a file with nvim
+nvims() {
+  if [ ! -z $1 ] 
+  then 
+    nvim $(ag . -i --nocolor --nogroup --hidden --ignore .git --ignore .svn --ignore .hg --ignore .DS_Store --ignore "**/*.pyc" -g "" | selecta -s "$1")
+  else
+    nvim $(ag . -i --nocolor --nogroup --hidden --ignore .git --ignore .svn --ignore .hg --ignore .DS_Store --ignore "**/*.pyc" -g "" | selecta)
+  fi
+}
+
+
+PATH=~/bin:/usr/local/opt/ruby/bin:/usr/local/sbin:/usr/local/bin:$PATH
+export PATH
+
+source $HOME/.liquidprompt/liquidprompt
+export LP_HOST=
+
+# export SSL_CERT_FILE="$(python -c 'print __import__("certifi").where()')"
+# source /usr/local/opt/autoenv/activate.sh
+# source /home/ubuntu/.local/bin/activate.sh
+#
+eval "$(direnv hook zsh)"
