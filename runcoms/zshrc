@@ -39,9 +39,9 @@ cdp() {
 vims() {
   if [ ! -z $1 ] 
   then 
-    vim $(ag . -i --nocolor --nogroup --hidden --ignore .git --ignore .svn --ignore .hg --ignore .DS_Store --ignore "**/*.pyc" -g "" | selecta -s "$1")
+    nvim $(ag . -i --nocolor --nogroup --hidden --ignore .git --ignore .svn --ignore .hg --ignore .DS_Store --ignore "**/*.pyc" -g "" | selecta -s "$1")
   else
-    vim $(ag . -i --nocolor --nogroup --hidden --ignore .git --ignore .svn --ignore .hg --ignore .DS_Store --ignore "**/*.pyc" -g "" | selecta)
+    nvim $(ag . -i --nocolor --nogroup --hidden --ignore .git --ignore .svn --ignore .hg --ignore .DS_Store --ignore "**/*.pyc" -g "" | selecta)
   fi
 }
 
